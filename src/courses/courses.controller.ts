@@ -1,11 +1,22 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CoursesService } from './courses.service';
+import { CreateCourseDto } from './dto/create-course.dto';
+import { UpdateCourseDto } from './dto/update-course.dto';
 
 @Controller('courses')
 export class CoursesController {
-  constructor(private readonly coursesService: CoursesService) {
-
-  }
+  constructor(private readonly coursesService: CoursesService) {}
 
   @Get()
   findAll() {
@@ -16,27 +27,33 @@ export class CoursesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    const course =  this.coursesService.findOne(id);
+    const course = this.coursesService.findOne(id);
     if (!course) {
-      throw new HttpException(`Course ID ${id} not found`, HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        `Course ID ${id} not found`,
+        HttpStatus.NOT_FOUND,
+      );
     }
     return course;
   }
 
   @Post()
   //@HttpCode(HttpStatus.NO_CONTENT)
-  create(@Body() body) {
-    this.coursesService.create(body);
+  create(@Body() createCourseDto: CreateCourseDto) {
+    this.coursesService.create(createCourseDto);
+    return createCourseDto;
   }
 
   @Put(':id')
-  update(@Body() body, @Param('id') id: string) {
-    this.coursesService.update(id, body);
+  update(@Body() updateCourseDto: UpdateCourseDto, @Param('id') id: string) {
+    this.coursesService.update(id, updateCourseDto);
+    return updateCourseDto;
   }
 
   @Patch(':id')
-  patch(@Param('id') id: string, @Body() body) {
-    this.coursesService.update(id, body);
+  patch(@Body() updateCourseDto: UpdateCourseDto, @Param('id') id: string) {
+    this.coursesService.update(id, updateCourseDto);
+    return updateCourseDto;
   }
 
   @Delete(':id')
