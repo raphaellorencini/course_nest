@@ -15,6 +15,7 @@ import { CoursesModule } from './courses/courses.module';
       database: 'course_nest',
       autoLoadEntities: true,
       synchronize: true,
+      //logging: true,
     }),
     CoursesModule,
   ],
