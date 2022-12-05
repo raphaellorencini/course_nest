@@ -8,13 +8,13 @@ import { CoursesModule } from './courses/courses.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'nest_db',
       port: 3306,
       username: 'root',
       password: 'root',
       database: 'course_nest',
-      autoLoadEntities: true,
-      synchronize: true,
+      //autoLoadEntities: true,
+      //synchronize: true,
       //logging: true,
     }),
     CoursesModule,

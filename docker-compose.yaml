@@ -1,0 +1,41 @@
+version: '3'
+
+networks:
+    app_network:
+      driver: bridge
+
+services:
+    nest_app:
+        build: .
+        entrypoint: .docker/entrypoint.sh
+        container_name: nest_app
+        environment:
+          - DB_HOST=nest_db
+          - DB_PORT=3306
+          - DB_DATABASE=nest_db
+          - DB_USERNAME=root
+          - DB_PASSWORD=root
+        ports:
+          - "3000:3000"
+        volumes:
+          - .:/home/node/app
+        networks:
+          - app_network
+        depends_on:
+            - nest_db
+
+    nest_db:
+        image: mysql:8.0
+        #command: --innodb-use-native-aio=0
+        container_name: nest_db
+        restart: always
+        tty: true
+        ports:
+          - "3307:3306"
+        volumes:
+          - ./.docker/mysql/dbdata:/var/lib/mysql
+        environment:
+          - MYSQL_DATABASE=course_nest
+          - MYSQL_ROOT_PASSWORD=root
+        networks:
+          - app_network
