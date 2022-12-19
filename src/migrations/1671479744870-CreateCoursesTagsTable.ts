@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateCoursesTable1670253150543 implements MigrationInterface {
+export class CreateCoursesTagsTable1671479744870 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'courses',
+        name: 'courses_tags',
         columns: [
           {
             name: 'id',
@@ -12,14 +12,8 @@ export class CreateCoursesTable1670253150543 implements MigrationInterface {
             length: '36',
             isPrimary: true,
             isUnique: true,
-          },
-          {
-            name: 'name',
-            type: 'varchar',
-          },
-          {
-            name: 'description',
-            type: 'varchar',
+            generationStrategy: 'uuid',
+            default: '(UUID())',
           },
           {
             name: 'created_at',
@@ -32,14 +26,6 @@ export class CreateCoursesTable1670253150543 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('courses');
+    await queryRunner.dropTable('courses_tags');
   }
 }
-
-/*
-npx typeorm migration:create src/migrations/CreateCoursesTable
-
-npm run build
-npx typeorm migration:run -d ./dist/data-source.js
-npx typeorm migration:revert -d ./dist/data-source.js
-*/

@@ -13,6 +13,7 @@ import { CoursesModule } from './courses/courses.module';
       username: 'root',
       password: 'root',
       database: 'course_nest',
+      entities: [__dirname + '/**/*.entity.js'],
       //autoLoadEntities: true,
       //synchronize: true,
       //logging: true,

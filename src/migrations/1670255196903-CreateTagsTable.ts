@@ -8,10 +8,10 @@ export class CreateTagsTable1670255196903 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'binary',
-            length: '16',
+            type: 'varchar',
+            length: '36',
             isPrimary: true,
-            default: '(UUID_TO_BIN(UUID()))',
+            isUnique: true,
           },
           {
             name: 'name',
